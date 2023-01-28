@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../../provider/UserProvider";
 import { SecondaryButton } from "../atoms/button/SecondaryButton";
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../organisms/user/UserCard";
+import { useRecoilState } from "recoil";
+import { userState } from "../../store/userState";
 
 const users = [...Array(10).keys()].map((val) => {
   return {
@@ -14,15 +13,16 @@ const users = [...Array(10).keys()].map((val) => {
     email: "000000@hogehoe.com",
     phone: "000-1111-1111111111",
     company: {
-      name: "株式会社hoge"
+      name: "株式会社hoge",
     },
-    website: "https://google.com"
+    website: "https://google.com",
   };
 });
 
 export const Users = () => {
   // const { state } = useLocation();
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  // const { userInfo, setUserInfo } = useContext(UserContext);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
 
   const onClickSwitch = () => {
     setUserInfo({ isAdmin: !userInfo.isAdmin });
